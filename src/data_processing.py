@@ -1,10 +1,12 @@
+# src/data_processing.py
+
 import pandas as pd
 
 def load_data(filepath):
     """
     Загружает данные из TSV файла.
     """
-    return pd.read_csv(filepath, sep='data/metrics_collector.tsv')
+    return pd.read_csv(filepath, sep='\t')
 
 def preprocess_data(df):
     """
