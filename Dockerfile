@@ -1,3 +1,4 @@
+# Dockerfile
 
 FROM python:3.8-slim
 
@@ -7,6 +8,8 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Копирование исходного кода
 COPY src /app/src
+COPY data /app/data
+COPY tests /app/tests
 
 # Установка рабочей директории
 WORKDIR /app/src

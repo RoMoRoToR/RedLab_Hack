@@ -1,7 +1,10 @@
 # src/main.py
 
 import sys
-sys.path.append("..")
+import os
+
+# Добавление пути к src в sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import pandas as pd
 from src.data_processing import load_data, preprocess_data, save_data
@@ -16,14 +19,22 @@ if __name__ == "__main__":
     features_data_path = "../data/features_data.tsv"
     anomalies_data_path = "../data/anomalies_data.tsv"
 
-    # Шаг 1: Загрузка и предобработка данных
-    data = load_data(raw_data_path)
-    processed_data = preprocess_data(data)
-    save_data(processed_data, processed_data_path)
+    # Проверка существования обработанных данных
+    if not os.path.exists(processed_data_path):
+        # Шаг 1: Загрузка и предобработка данных
+        data = load_data(raw_data_path)
+        processed_data = preprocess_data(data)
+        save_data(processed_data, processed_data_path)
+    else:
+        processed_data = pd.read_csv(processed_data_path, sep='\t')
 
-    # Шаг 2: Вычисление метрик
-    data_with_features = compute_features(processed_data)
-    data_with_features.to_csv(features_data_path, sep='\t', index=False)
+    # Проверка существования данных с признаками
+    if not os.path.exists(features_data_path):
+        # Шаг 2: Вычисление метрик
+        data_with_features = compute_features(processed_data)
+        data_with_features.to_csv(features_data_path, sep='\t', index=False)
+    else:
+        data_with_features = pd.read_csv(features_data_path, sep='\t')
 
     # Шаг 3: Обнаружение аномалий
     features = ['web_response', 'throughput', 'apdex', 'error_rate']
