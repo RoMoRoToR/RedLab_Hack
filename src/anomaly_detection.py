@@ -13,10 +13,10 @@ def detect_anomalies(df, features):
     return df
 
 if __name__ == "__main__":
-    data_path = '../data/processed/features_data.tsv'
-    df = pd.read_csv(data_path, sep='\t')
+    features_data_path = "../data/features_data.tsv"
+    anomalies_data_path = "../data/anomalies_data.tsv"
 
+    data = pd.read_csv(features_data_path, sep='\t')
     features = ['web_response', 'throughput', 'apdex', 'error_rate']
-    df = detect_anomalies(df, features)
-
-    df.to_csv('../data/processed/anomalies_data.tsv', sep='\t', index=False)
+    data_with_anomalies = detect_anomalies(data, features)
+    data_with_anomalies.to_csv(anomalies_data_path, sep='\t', index=False)

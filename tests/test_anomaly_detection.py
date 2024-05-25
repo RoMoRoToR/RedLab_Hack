@@ -1,10 +1,13 @@
 # tests/test_anomaly_detection.py
 
+import sys
+sys.path.append("..")
+
 import pandas as pd
 from src.anomaly_detection import detect_anomalies
 
 def test_detect_anomalies():
-    data_path = '../data/processed/features_data.tsv'
+    data_path = '../data/features_data.tsv'
     df = pd.read_csv(data_path, sep='\t')
 
     features = ['web_response', 'throughput', 'apdex', 'error_rate']

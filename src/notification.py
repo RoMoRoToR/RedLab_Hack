@@ -45,7 +45,6 @@ def notify_anomalies(anomalies):
     send_email(subject, body, to_addrs)
 
 if __name__ == "__main__":
-    # Пример использования
     anomalies = "1. Throughput anomaly on 2024-04-19 07:15:00 - 08:00:00 UTC\n" \
                 "2. Web Response anomaly on 2024-04-20 07:20:00 - 07:40:00 UTC"
     notify_anomalies(anomalies)
