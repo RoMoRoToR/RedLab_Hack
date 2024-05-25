@@ -1,4 +1,4 @@
-# src/anomaly_detection.py
+# anomaly_detection.py
 
 import pandas as pd
 from sklearn.ensemble import IsolationForest
@@ -7,9 +7,12 @@ def detect_anomalies(df, features):
     """
     Выявляет аномалии в данных с использованием Isolation Forest.
     """
+    # Обработка NaN значений
+    df = df.dropna(subset=features).copy()
+
     model = IsolationForest(contamination=0.01)
-    df['anomaly'] = model.fit_predict(df[features])
-    df['anomaly'] = df['anomaly'].apply(lambda x: 1 if x == -1 else 0)
+    df.loc[:, 'anomaly'] = model.fit_predict(df[features])
+    df.loc[:, 'anomaly'] = df['anomaly'].apply(lambda x: 1 if x == -1 else 0)
     return df
 
 if __name__ == "__main__":

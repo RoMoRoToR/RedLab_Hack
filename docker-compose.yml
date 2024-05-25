@@ -1,16 +1,13 @@
-version: '3.8'
+version: '3.9'
 
 services:
   anomaly_detection:
     build: .
     volumes:
       - ./data:/app/data
-    environment:
-      - SMTP_SERVER=smtp.example.com
-      - SMTP_PORT=587
-      - EMAIL_USER=your_email@example.com
-      - EMAIL_PASSWORD=your_password
-      - RECIPIENTS=recipient1@example.com,recipient2@example.com
-
-volumes:
-  db_data:
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          memory: 4G
