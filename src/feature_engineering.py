@@ -1,5 +1,3 @@
-# src/feature_engineering.py
-
 import pandas as pd
 
 def compute_features(df):
